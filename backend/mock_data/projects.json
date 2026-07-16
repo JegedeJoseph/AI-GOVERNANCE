@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Lagos-Ibadan Expressway Expansion",
+    "status": "Active",
+    "budget": "$150,000,000",
+    "location": [6.6111, 3.4245],
+    "ai_score": 85.5,
+    "whatsapp_status": "Community reports daily activity."
+  },
+  {
+    "id": 2,
+    "name": "Kano Rural Hospital Facility",
+    "status": "Abandoned",
+    "budget": "$5,000,000",
+    "location": [11.9964, 8.5167],
+    "ai_score": 12.0,
+    "whatsapp_status": "No activity seen in 6 months."
+  },
+  {
+    "id": 3,
+    "name": "Port Harcourt Primary School Reno",
+    "status": "Completed",
+    "budget": "$250,000",
+    "location": [4.8156, 7.0498],
+    "ai_score": 98.2,
+    "whatsapp_status": "School is fully operational."
+  }
+]
