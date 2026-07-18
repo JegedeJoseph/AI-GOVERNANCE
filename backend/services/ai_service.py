@@ -58,7 +58,7 @@ def run_inference(image_path: str, project_id: int) -> dict:
         FileNotFoundError: if image_path does not exist.
     """
     try:
-        from ultralytics import YOLO
+        from ultralytics import YOLO  # type: ignore[import]
     except ImportError as exc:
         raise ImportError(
             "ultralytics is not installed. Run: pip install ultralytics>=8.2.0"
