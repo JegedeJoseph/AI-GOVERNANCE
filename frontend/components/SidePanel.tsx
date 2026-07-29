@@ -4,6 +4,7 @@ import { Activity, MapPin, DollarSign, Brain, MessageCircle, Clock, TrendingUp }
 interface SidePanelProps {
   project: Project | null;
   apiBase: string;
+  loading?: boolean;
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -34,7 +35,17 @@ function statusBadge(status: string) {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function SidePanel({ project, apiBase }: SidePanelProps) {
+export default function SidePanel({ project, apiBase, loading = false }: SidePanelProps) {
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-full w-full bg-white dark:bg-gray-900">
+        <div className="text-center text-gray-400 dark:text-gray-500">
+          <div className="w-8 h-8 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-sm">Loading project details…</p>
+        </div>
+      </div>
+    );
+  }
   if (!project) {
     return (
       <div className="flex flex-col items-center justify-center h-full w-full bg-white dark:bg-gray-900 text-gray-400 dark:text-gray-500 gap-3 p-8 text-center">

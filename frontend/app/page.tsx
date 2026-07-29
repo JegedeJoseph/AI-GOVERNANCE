@@ -62,6 +62,7 @@ export default function Home() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const [detailLoading, setDetailLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -80,6 +81,21 @@ export default function Home() {
     }
     fetchProjects();
   }, []);
+
+  async function handleSelectProject(proj: Project) {
+    setDetailLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/projects/${proj.id}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const detail: Project = await res.json();
+      setSelectedProject(detail);
+    } catch {
+      // Fall back to the summary object if detail fetch fails
+      setSelectedProject(proj);
+    } finally {
+      setDetailLoading(false);
+    }
+  }
 
   if (loading) {
     return (
@@ -103,10 +119,10 @@ export default function Home() {
   return (
     <main className="flex h-screen w-screen overflow-hidden">
       <div className="flex-1 h-full relative">
-        <MapView projects={projects} onSelectProject={setSelectedProject} />
+        <MapView projects={projects} onSelectProject={handleSelectProject} />
       </div>
       <div className="w-[420px] h-full shadow-2xl z-10 flex-shrink-0 transition-transform duration-300 border-l border-gray-200 dark:border-gray-800">
-        <SidePanel project={selectedProject} apiBase={API_BASE} />
+        <SidePanel project={selectedProject} apiBase={API_BASE} loading={detailLoading} />
       </div>
     </main>
   );
